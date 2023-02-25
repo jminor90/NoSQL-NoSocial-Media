@@ -5,6 +5,7 @@ const thoughtController = {
     getAllThoughts(req, res) {
         Thought.find()
             .select('-__v')
+            .populate('thoughtText')
             .then(dbThoughtData => res.json(dbThoughtData))
             .catch(err => {
                 console.log(err);
@@ -103,14 +104,18 @@ const thoughtController = {
         .catch((err) => res.status(500).json(err));
     },
     // remove reaction
-    removeReaction({ params }, res) {
+    removeReaction(req, res) {
         Thought.findOneAndUpdate(
-            { _id: params.thoughtId },
-            { $pull: { reactions: { reactionId: params.reactionId } } },
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: { reactionId: req.params.reactionId } } },
             { new: true }
         )
-            .then(dbThoughtData => res.json(dbThoughtData))
-            .catch(err => res.json(err));
+            .then((thought) =>
+            !thought
+            ? res.status(404).json({ message: 'No thought with this id' })
+            : res.json(thought)
+        )
+            .catch((err) => res.status(500).json(err));
     }
 };
 

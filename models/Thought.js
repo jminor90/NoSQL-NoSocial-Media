@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const dayjs = require('dayjs')
 
 const reactionSchema = new mongoose.Schema({
-  reactionID: {
+  reactionId: {
     type: mongoose.Types.ObjectId,
     default: () => new mongoose.Types.ObjectId()
   },
