@@ -10,14 +10,44 @@ connection.once('open', async () => {
     await User.deleteMany({});
     await Thought.deleteMany({});
 
+    const userThoughts = [];
+    // const friendsArray = [];
+
     const users = getUsers();
     const thoughts = getThoughts();
 
-    await User.collection.insertMany(users);
-    await Thought.collection.insertMany(thoughts);
+    
+    for (let i=0; i<=3; i++) {
+        const newThought = await Thought.create({
+            ...thoughts[i],
+            username: users[i].username
+        });
 
-    console.table(users);
-    console.table(thoughts);
+        userThoughts.push({
+            ...users[i],
+            thoughts: [newThought._id]
+        })
+    }
+
+    //Loop to add friends, can't get figured out at this time
+    // for (let i=0; i<=3; i++) {
+    //     const newFriend = await User.create({
+    //         ...users[i],
+    //         friends: users[i].username
+    //     })
+
+    //     friendsArray.push({
+    //         ...users[i],
+    //         friends: [newFriend._id]
+    //     })
+
+    // }
+
+    await User.insertMany(userThoughts);
+    // await Thought.collection.insertMany(thoughts);
+    // await User.insertMany(friendsArray);
+    // console.table(users);
+    console.table(userThoughts);
 
     console.info(`~*-Database Seeded!-*~`);
     process.exit();

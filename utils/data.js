@@ -1,3 +1,5 @@
+const {Types} = require('mongoose')
+
 const names = [
   'Joshua Minor', // [0]
   'Chris Simmonds', // [1]
@@ -21,7 +23,7 @@ const email = [
   'zach@email.com', // [3]
 ]
 
-// trying to set up each line in an array is the same index throughout
+
 const thoughts = [
   `I Love the Legend of Zelda!`, // [0]
   `Can't wait to go to visit Italy!`, // [1]
@@ -29,12 +31,12 @@ const thoughts = [
   `Florida is so much warmer than Missouri!`, // [3]
 ]
 
-// Should accept up to 280 characters
+
 const reactions = [
-  `Do you like Majora's Mask or Ocarina of time more?`, // [0]
-  `What part of Italy are you going to?`, // [1]
-  `Nice, just got my tickets for Ghastly!`, // [2]
-  `Meet me in St. Louis!`, // [3]
+  {reactionId: new Types.ObjectId(), username:'zMinor90', reactionBody: `Do you like Majora's Mask or Ocarina of time more?`}, // [0]
+  {reactionId: new Types.ObjectId(), username:'kMinor99', reactionBody: `What part of Italy are you going to?`}, // [1]
+  {reactionId: new Types.ObjectId(), username:'Christoph551', reactionBody: `Nice, just got my tickets for Ghastly!`}, // [2]
+  {reactionId: new Types.ObjectId(), username:'jminor90', reactionBody: `Meet me in St. Louis!`}, // [3]
 ]
 
 
